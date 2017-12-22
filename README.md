@@ -20,6 +20,7 @@ BEGIN
    ) j
 ) 
 WHERE punti.ROWID=NEW.ROWID;
+END
 ```
 
 seconda prova - `funziona!`
@@ -41,6 +42,7 @@ BEGIN
    ) j
 ) 
 WHERE punti.ROWID=NEW.ROWID;
+END
 ```
 
 quale delle due prove è la più corretta?
