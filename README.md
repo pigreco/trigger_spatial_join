@@ -45,7 +45,7 @@ WHERE punti.ROWID=NEW.ROWID;
 END
 ```
 
-quale delle due prove è la più corretta?
+quale delle due prove è la più corretta? funzionano entrambe!!!
 
 - [ ] prima
 - [ ] seconda
