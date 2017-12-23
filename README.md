@@ -57,7 +57,7 @@ BEGIN
    from punti as  p, strade as l
    where p.pk_p||l.nome_strada IN 
         (
-	      SELECT pu.pk_p||li.nome_strada 
+	 SELECT pu.pk_p||li.nome_strada 
          from punti as  pu, strade as li 
          group by pu.pk_p
          having min ( distance(li.geom, pu.geom))AND pu.ROWID=NEW.ROWID
