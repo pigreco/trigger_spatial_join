@@ -6,19 +6,16 @@ prima prova - `funziona!`
 ```
 CREATE TRIGGER ins_punti AFTER INSERT ON punti
 BEGIN
-   UPDATE punti SET data_ins = DATETIME ('NOW')
-   WHERE rowid = new.rowid ;
-
-   UPDATE punti SET distanza = 
+   UPDATE punti SET nome_strada =
 (
-   select j.dista
+   select k.nome_strada
    from 
-   (select NEW.pk_p,distance(l.geom, NEW.geom) as dista
+   (select NEW.pk_p,l.nome_strada
    from punti as  p, strade as l
    group by NEW.pk_p
    having min ( distance(l.geom, NEW.geom)) AND punti.ROWID=NEW.ROWID
-   ) j
-) 
+   ) k
+)
 WHERE punti.ROWID=NEW.ROWID;
 END
 ```
@@ -28,19 +25,22 @@ seconda prova - `funziona!`
 ```
 CREATE TRIGGER ins_punti AFTER INSERT ON punti
 BEGIN
-   UPDATE punti SET data_ins = DATETIME ('NOW')
-   WHERE rowid = new.rowid ;
-
-   UPDATE punti SET distanza = 
+   UPDATE punti SET nome_strada =
 (
-   select j.dista
+   select k.nome_strada
    from 
-   (select NEW.pk_p,min(distance(l.geom, NEW.geom)) as dista
+   (
+   select l.nome_strada 
    from punti as  p, strade as l
-   group by NEW.pk_p
-   having min ( distance(l.geom, NEW.geom)) AND punti.ROWID=NEW.ROWID
-   ) j
-) 
+   where p.pk_p||l.nome_strada IN 
+        (
+	      SELECT pu.pk_p||li.nome_strada 
+         from punti as  pu, strade as li 
+         group by pu.pk_p
+         having min ( distance(li.geom, pu.geom))AND pu.ROWID=NEW.ROWID
+         ) 		 
+   ) k
+)
 WHERE punti.ROWID=NEW.ROWID;
 END
 ```
