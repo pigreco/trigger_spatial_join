@@ -1,6 +1,29 @@
 # database SpatiaLite e i trigger per lo spatial-join
 trigger per risolvere il problema dello spatiali join 
 
+-- creo tabella punti
+```
+CREATE TABLE punti
+(pk_p INTEGER PRIMARY KEY autoincrement NOT NULL,
+nome_strada TEXT,
+data_ins datetime,
+note TEXT,
+distanza DOUBLE);
+
+SELECT AddGeometryColumn('punti','geom',3004,'POINT',2);
+```
+
+-- creo tabella strade
+```
+CREATE TABLE strade
+(pk_l INTEGER PRIMARY KEY autoincrement NOT NULL,
+nome_strada TEXT
+);
+
+SELECT AddGeometryColumn('strade','geom',3004,'LINESTRING',2);
+```
+## con questi trigger vorrei far popolare il campo `nome_strada` dopo l'inserimento di un punto
+
 prima prova - `funziona!`
 
 ```
